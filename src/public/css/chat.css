@@ -1,0 +1,146 @@
+#all-messages {
+  padding: 20px;
+  background-color: #f9f9f9;
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 70px; /* Space for the footer */
+}
+
+.message {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: flex-end;
+}
+
+.message .image-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.message .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.message .message-body {
+  max-width: 75%;
+  background-color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.message .message-body .user-info {
+  font-weight: bold;
+  color: #006633; /* Verde institucional */
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message .message-body .user-info .time {
+  color: #999;
+  font-size: 12px;
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.message .message-body p {
+  margin: 0;
+  color: #333;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Style for user's own messages */
+.message.own {
+  justify-content: flex-end;
+}
+
+.message.own .message-body {
+  background-color: #dcf8c6; /* Light green for own messages */
+  border-bottom-right-radius: 4px;
+}
+
+.message.own .image-container {
+  order: 2;
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.message:not(.own) .message-body {
+  border-bottom-left-radius: 4px;
+}
+
+#typing-indicator {
+  height: 20px;
+  color: #999;
+  font-style: italic;
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+.send-message {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.send-message input {
+  flex-grow: 1;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  outline: none;
+  font-size: 16px;
+}
+
+.send-message button {
+  background-color: #006633; /* Verde institucional */
+  color: #ffffff; /* Texto blanco */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.send-message button:hover {
+  background-color: #004422; /* Verde más oscuro */
+}
+
+.send-message button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Botón de sonido */
+.sound-btn {
+  background-color: #006633 !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  margin-left: 10px !important;
+}
+
+.sound-btn svg {
+  stroke: white;
+}
+
+.sound-btn.muted {
+  background-color: #cccccc !important;
+}

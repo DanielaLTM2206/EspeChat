@@ -1,0 +1,86 @@
+main {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+}
+
+main form {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 102, 51, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+main form .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+main form .input-group label {
+  text-align: center;
+  font-weight: 600;
+  color: #006633;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+main form .input-group input {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+main form .input-group input:focus {
+  outline: none;
+  border-color: #006633;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 102, 51, 0.1);
+}
+
+main form .input-group input::placeholder {
+  color: #999;
+}
+
+main form .button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+main form .button-container button {
+  background: linear-gradient(135deg, #006633 0%, #004d2a 100%);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 102, 51, 0.3);
+}
+
+main form .button-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 102, 51, 0.4);
+  background: linear-gradient(135deg, #004d2a 0%, #003d20 100%);
+}
+
+main form .button-container button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 102, 51, 0.3);
+}

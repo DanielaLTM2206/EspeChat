@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/chat.css" />
+    <title>ESPEChat</title>
+  </head>
+  <body>
+    <header>
+      <h1>ESPEChat</h1>
+      <div id="user-counter">
+        <span id="online-count">0</span> usuarios en línea
+      </div>
+    </header>
+    <main>
+      <div id="all-messages"></div>
+    </main>
+    <footer>
+      <div id="typing-indicator"></div>
+      <div class="send-message">
+        <input type="text" id="message" placeholder="Escribe un mensaje..." />
+        <button id="send-message" class="btn secondary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-send"
+          >
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+    </footer>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
