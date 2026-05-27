@@ -144,3 +144,29 @@
 .sound-btn.muted {
   background-color: #cccccc !important;
 }
+
+/* ============================================================================
+   ESTADOS DE RESILIENCIA TRANSACCIONAL (Módulo Académico)
+   ============================================================================ */
+.message.sending {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.message.sending .message-body {
+  border: 1px dashed #999;
+}
+
+.message.failed {
+  cursor: pointer;
+}
+
+.message.failed .message-body {
+  border: 1px solid #ff4a4a !important;
+  background-color: #ffebeb !important;
+}
+
+.message.failed:hover .message-body {
+  background-color: #ffd6d6 !important;
+}
+
