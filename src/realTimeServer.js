@@ -8,6 +8,9 @@
 const CookieHelper = require("./utils/cookieHelper");
 const MessageRepository = require("./repositories/MessageRepository");
 const UserRepository = require("./repositories/UserRepository");
+const Sentry = require("@sentry/node");
+const JWTHelper = require("./utils/jwtHelper");
+const { InvalidCredentialsError } = require("./utils/errors");
 
 module.exports = (httpServer) => {
   const { Server } = require("socket.io");
@@ -25,14 +28,33 @@ module.exports = (httpServer) => {
   // ========================================================================
   io.on("connection", async (socket) => {
     
-    // 1. Cláusula de Guarda: Obtener y validar el usuario desde cookies de forma segura
+    // 1. Cláusula de Guarda: Obtener y validar el JWT token desde cookies
     const cookieHeader = socket.request.headers.cookie;
-    const currentUser = CookieHelper.get(cookieHeader, "username");
+    const token = CookieHelper.get(cookieHeader, "token");
+    let currentUser = null;
     
-    if (!currentUser) {
-      console.warn("Conexión rechazada: Cookie 'username' ausente.");
+    if (!token) {
+      const err = new InvalidCredentialsError("Conexión rechazada: Token de sesión ausente.");
+      Sentry.captureException(err, {
+        tags: { source: "socket.io", event: "connection" },
+        extra: { socketId: socket.id }
+      });
+      console.warn("Conexión rechazada: Token JWT ausente.");
       socket.disconnect(true);
-      return; // Salida rápida (Guard Clause)
+      return;
+    }
+
+    try {
+      const decoded = JWTHelper.verify(token);
+      currentUser = decoded.username;
+    } catch (error) {
+      Sentry.captureException(error, {
+        tags: { source: "socket.io", event: "connection" },
+        extra: { socketId: socket.id, token }
+      });
+      console.warn("Conexión rechazada: Token JWT inválido o expirado.", error.message);
+      socket.disconnect(true);
+      return;
     }
 
     // 2. Registro de sesión en memoria
@@ -94,6 +116,12 @@ module.exports = (httpServer) => {
           callback({ success: true, id: savedMsg.id });
         }
       } catch (error) {
+        // Registrar el error en Sentry con tags e información extra
+        Sentry.captureException(error, { 
+          tags: { source: "socked.io", event: "message" },
+          extra: { socketId: socket.id }
+        });
+
         console.error(`Error al procesar mensaje de ${currentUser}:`, error.message);
         
         // Enviamos el ACK de fallo con el motivo al emisor
@@ -116,6 +144,16 @@ module.exports = (httpServer) => {
     socket.on("stopTyping", () => {
       typingUsers = typingUsers.filter((user) => user !== currentUser);
       io.emit("updateTyping", { typingUsers });
+    });
+
+    // ====================================================================
+    // EVENTO: Captura de errores del socket (Observabilidad)
+    // ====================================================================
+    socket.on("error", (err) => {
+      Sentry.captureException(err, {
+        tags: { source: "socket.io", event: "error" },
+        extra: { socketId: socket.id },
+      });
     });
 
     // ====================================================================

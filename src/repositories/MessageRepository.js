@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
+const { DatabaseError } = require('../utils/errors');
 
 /**
  * MessageRepository: Encargado de la persistencia persistente de mensajes en un archivo JSON.
@@ -54,6 +55,11 @@ class MessageRepository {
   async save(message) {
     if (!message.user || !message.content) {
       throw new Error('Validación fallida: El remitente y el contenido son requeridos.');
+    }
+
+    // Simulación de Fallo Operacional (Base de Datos caída)
+    if (message.content && message.content.trim().startsWith('/fail-db')) {
+      throw new DatabaseError('Error operacional simulado: Fallo de conexión o escritura en la base de datos de mensajes.');
     }
 
     // Usamos encadenamiento de promesas para serializar escrituras concurrentes (Locks)
