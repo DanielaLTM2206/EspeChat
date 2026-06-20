@@ -1,46 +1,53 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/chat.css" />
-    <title>ESPEChat</title>
-  </head>
-  <body>
-    <header>
-      <h1>ESPEChat</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/chat.css" />
+  <title>ESPEChat</title>
+</head>
+
+<body>
+  <header>
+    <h1>ESPEChat</h1>
+    <div style="display: flex; align-items: center; gap: 15px;">
       <div id="user-counter">
         <span id="online-count">0</span> usuarios en línea
       </div>
-    </header>
-    <main>
-      <div id="all-messages"></div>
-    </main>
-    <footer>
-      <div id="typing-indicator"></div>
-      <div class="send-message">
-        <input type="text" id="message" placeholder="Escribe un mensaje..." />
-        <button id="send-message" class="btn secondary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-send"
-          >
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
-        </button>
-      </div>
-    </footer>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/script.js"></script>
-  </body>
+      <button id="logout-btn" style="background-color: transparent; border: 1.5px solid #ff4d4d; color: #ff4d4d; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: all 0.2s ease;">Cerrar Sesión</button>
+    </div>
+  </header>
+  <main>
+    <div id="all-messages"></div>
+  </main>
+  <footer>
+    <div id="typing-indicator"></div>
+    <div class="send-message">
+      <input type="text" id="message" placeholder="Escribe un mensaje..." />
+      <button id="send-message" class="btn secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-send">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </footer>
+  <script>
+    window.sentryOnload = function () {
+      Sentry.init({
+        enviroment: "production",
+        release: "EspeChat@1.0.0",
+        traceSampleRate: 0, //solo errores
+      })
+    };
+  </script>
+  <script src="https://js.sentry-cdn.com/bec58a82c467517a63290f0833af938a.min.js" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
 </html>

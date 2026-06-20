@@ -250,3 +250,18 @@ socket.on('updateTyping', ({ typingUsers }) => {
     typingIndicator.innerText = 'Varios usuarios están escribiendo...';
   }
 });
+
+// Manejo de Cerrar Sesión (Token JWT)
+const logoutBtn = document.querySelector('#logout-btn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', async () => {
+    try {
+      const response = await fetch('/api/logout', { method: 'POST' });
+      if (response.ok) {
+        document.location.href = '/register';
+      }
+    } catch (err) {
+      console.error('Error al cerrar sesión:', err);
+    }
+  });
+}
